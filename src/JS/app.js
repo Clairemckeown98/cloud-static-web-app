@@ -135,8 +135,15 @@ function validateLogIn() {
     success: function (userData) {
       console.log(userData)
       console.log(userData[0])
-      alert("Login successfully");
-      window.location = "./index.html"; // Redirecting to other page.
+
+
+
+      if (username == userName && isAdmin == 1) {
+        alert("Login worked");
+        window.location = "./user.html";
+      } else {
+        alert("failed");
+      }
       return false;
     }
   })
