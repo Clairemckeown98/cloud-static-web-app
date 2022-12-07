@@ -15,9 +15,13 @@ GET_USER_END = "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig
 //login
 LOGIN = "https://prod-10.northeurope.logic.azure.com:443/workflows/ed36d3f7e66c46f9b2da4bf28fd36783/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nqjLskq07bktX4wHdDBQrkbjh7Dd43phYoSfUQtU5e0";
 //Handlers for button clicks
+USER_EXISTS = "https://prod-29.northeurope.logic.azure.com:443/workflows/f9b8879927a64219afca12ce951bd084/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wJLPsSqumxbNHTNLSFw1JMsHfnBOUxJk432bDNesLVs";
 
 
 $(document).ready(function () {
+  if(sessionStorage.getItem("isAdmin")=="false"){
+    $('#FullVideoForm').html('<div style = "display:none"></div>')
+  }
 
 
   $("#retVideos").click(function () {
@@ -76,14 +80,17 @@ function getVideos() {
 
     //Iterate through the returned records and build HTML, incorporating the key values of the record in the data
     $.each(data, function (key, val) {
+      items.push("<div>");
       items.push("<hr />");
-      items.push("<video controls width='320' height='240' controls autoplay src='" + BLOB_ACCOUNT + val["filePath"] + "'type='video/mp4'/></video> <br />")
+      items.push("<video controls class text-align:center width='1000' height='800' controls autoplay src='" + BLOB_ACCOUNT + val["filePath"] + "'type='video/mp4'/></video> <br />")
       items.push("Title : " + val["title"] + "<br />");
       items.push("Uploaded by: " + val["userName"] + " (user id: " + val["userID"] + ")<br />");
-
       items.push("Genre: " + val["genre"] + " (Age Rating: " + val["ageRating"] + ")<br />");
+      if(sessionStorage.getItem("isAdmin")=="true"){ 
       items.push('<button type="button" onclick=\"deleteVideoFunction(\'' + val["id"] + '\')">Delete</button>');
+      }
       items.push("<hr />");
+      items.push("<div />");
     });
     //Clear the assetlist div
     $('#VideoList').empty();
@@ -104,13 +111,9 @@ function deleteVideoFunction(id) {
   })
 }
 
-
-
-
 //Trying to figure out login
 
-var attempt = 3; // Variable to count number of attempts.
-// Below function Executes on click of login button.
+
 function validateLogIn() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
@@ -124,6 +127,7 @@ function validateLogIn() {
   var isAdmin;
   var userName;
   var userFullName;
+  var emailAddress;
 
   $.ajax({
     url: LOGIN,
@@ -137,14 +141,75 @@ function validateLogIn() {
       console.log(userData[0])
 
 
+    sessionStorage.setItem("userId", userData[0].userID)
+    sessionStorage.setItem("userName", userData[0].userName)
+    sessionStorage.setItem("fullName", userData[0].fullName)
+    sessionStorage.setItem("emailAddress", userData[0].emailAddress)
+    sessionStorage.setItem("isAdmin", userData[0].isAdmin)
 
-      if (username == userName && isAdmin == 1) {
-        alert("Login worked");
-        window.location = "./user.html";
+      isAdmin = userData[0].isAdmin;
+
+      if (userData[0].userName) {
+        if (isAdmin) {
+          alert("Admin Login worked");
+          window.location = "./index.html";
+        } else {
+          alert("Login worked");
+          window.location = "./index.html";
+        }
       } else {
         alert("failed");
       }
       return false;
     }
   })
+
 }
+
+
+function createUser() {
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  var userFullName = document.getElementById("fullname").value;
+  var emailAddress = document.getElementById("emailaddress").value;
+
+  checkExistingUserData = new FormData();
+  checkExistingUserData.append('userName', username)
+
+
+  $.ajax({
+    url: USER_EXISTS,
+    type: "POST",
+    data: userExists,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      console.log(response)
+      if (!response) {
+        console.log("all good")
+      createUserData = newFormData();
+      createUserData.append('userName', username)
+      createUserData.append('fullname', fullname);
+      createUserData.append('emailaddress', emailaddress);
+
+      $.ajax({
+        url: CREATE_USER,
+        type: "POST",
+        data: CreateUserData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          console.log(reponse)
+        }
+      })
+    } else {
+      alert("Name not available");
+    }
+  }
+  })
+
+
+}
+
