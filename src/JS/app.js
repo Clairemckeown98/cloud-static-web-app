@@ -206,7 +206,7 @@ function createUser() {
         success: function (response) {
           console.log(response);
           alert("Login worked");
-          window.location = "./login.html";
+          window.location = "./index.html";
           
         }
         
@@ -219,21 +219,26 @@ function createUser() {
 
 }
 
-function updatePasswordFunction(id) {
-
-  if(document.getElementById("updateUserPassword").value.length == 0){
+function updatePasswordFunction() {
+  var password;
+  if(!(document.getElementById("updateUserPassword").value)){
     alert("password empty");
+    return;
   }
   else{
-    var password = document.getElementById("updateUserPassword").value;
+    password = document.getElementById("updateUserPassword").value;
   }
-  UserData = new FormData();
+  UserUpdateData = new FormData();
 
-  UserData.append('password', password)
+  console.log(password);
+
+  UserUpdateData.append('password', password)
+
+  var userIdForUpdate = sessionStorage.getItem("userId");
 
   $.ajax({
-    url: UPDATE_PW_START + id + UPDATE_PW_END,
-    data: submitData,
+    url: UPDATE_PW_START + userIdForUpdate + UPDATE_PW_END,
+    data: UserUpdateData,
     cache: false,
     enctype: 'multipart/form-data',
     contentType: false,
@@ -241,7 +246,7 @@ function updatePasswordFunction(id) {
     type: "PUT",
     success: function (data) {
       alert("password updated");
-      window.location = "./login.html";
+      window.location = "./video.html";
       sessionStorage.setItem("userId", userData[0].userID);
     }
   });
