@@ -10,13 +10,14 @@ BLOB_ACCOUNT = "https://omgshreb00776820.blob.core.windows.net";
 //create new user
 CREATE_USER = "https://prod-61.northeurope.logic.azure.com/workflows/231af797b5cd44a7b4f273d64e5b13d1/triggers/manual/paths/invoke/rest/v1/assets?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4fV0XsboEZ-kkyTrXeSD14zH83_a46epglA3sV-Ijlw";
 //get user
-GET_USER_START = "https://prod-59.northeurope.logic.azure.com/workflows/19c6d846939f4dffb75053e1424d3e78/triggers/manual/paths/invoke/rest/v1/assets/";
+GET_USER_START = "https://prod-59.northeurope.logic.azure.com/workflows/19c6d846939f4dffb75053e1424d3e78/triggers/manual/paths/invoke/rest/v1/users/";
 GET_USER_END = "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=lk-HdpfY6zxP0_JRdQ_tYi7LajNNXfMy9CumYLNDwFs";
 //login
 LOGIN = "https://prod-10.northeurope.logic.azure.com:443/workflows/ed36d3f7e66c46f9b2da4bf28fd36783/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nqjLskq07bktX4wHdDBQrkbjh7Dd43phYoSfUQtU5e0";
 //Handlers for button clicks
 USER_EXISTS = "https://prod-29.northeurope.logic.azure.com:443/workflows/f9b8879927a64219afca12ce951bd084/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wJLPsSqumxbNHTNLSFw1JMsHfnBOUxJk432bDNesLVs";
-
+UPDATE_PW_START= "https://prod-38.northeurope.logic.azure.com/workflows/a4b3f47c22104299835ddb3ccfc12b51/triggers/manual/paths/invoke/rest/v1/users/";
+UPDATE_PW_END= "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=mHNp7MCHy2rMrt8MeTmABS7YUoL1ljhm_FmlVW4cFrM";
 
 $(document).ready(function () {
   if(sessionStorage.getItem("isAdmin")=="false"){
@@ -82,7 +83,7 @@ function getVideos() {
     $.each(data, function (key, val) {
       items.push("<div>");
       items.push("<hr />");
-      items.push("<video controls class text-align:center width='1000' height='800' controls autoplay src='" + BLOB_ACCOUNT + val["filePath"] + "'type='video/mp4'/></video> <br />")
+      items.push("<video controls class text-align:center width='1000' height='800'  src='" + BLOB_ACCOUNT + val["filePath"] + "'type='video/mp4'/></video> <br />")
       items.push("Title : " + val["title"] + "<br />");
       items.push("Uploaded by: " + val["userName"] + " (user id: " + val["userID"] + ")<br />");
       items.push("Genre: " + val["genre"] + " (Age Rating: " + val["ageRating"] + ")<br />");
@@ -111,14 +112,7 @@ function deleteVideoFunction(id) {
   })
 }
 
-function updateUserPasswordFunction(id) {
-  $.ajax({
-    type: "PUT",
-    url: DAI_START + id + DAI_END
-  }).done(function () {
-    getVideos();
-  })
-}
+
 
 //Trying to figure out login
 
@@ -223,11 +217,33 @@ function createUser() {
   }
   })
 
-
 }
 
-module.exports = async function (context, req) {
-  context.res.json({
-      text: "Hello from the API"
+function updatePasswordFunction(id) {
+
+  if(document.getElementById("updateUserPassword").value.length == 0){
+    alert("password empty");
+  }
+  else{
+    var password = document.getElementById("updateUserPassword").value;
+  }
+  UserData = new FormData();
+
+  UserData.append('password', password)
+
+  $.ajax({
+    url: UPDATE_PW_START + id + UPDATE_PW_END,
+    data: submitData,
+    cache: false,
+    enctype: 'multipart/form-data',
+    contentType: false,
+    processData: false,
+    type: "PUT",
+    success: function (data) {
+      alert("password updated");
+      window.location = "./login.html";
+      sessionStorage.setItem("userId", userData[0].userID);
+    }
   });
-};
+}
+
