@@ -111,6 +111,15 @@ function deleteVideoFunction(id) {
   })
 }
 
+function updateUserPasswordFunction(id) {
+  $.ajax({
+    type: "PUT",
+    url: DAI_START + id + DAI_END
+  }).done(function () {
+    getVideos();
+  })
+}
+
 //Trying to figure out login
 
 function validateLogIn() {
