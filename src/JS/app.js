@@ -7,6 +7,8 @@ const appInsights = new ApplicationInsights({ config: {
 appInsights.loadAppInsights();
 appInsights.trackPageView();
 
+
+
 //add video
 IUPS = "https://prod-54.northeurope.logic.azure.com:443/workflows/d4d8ce37377446c994f14e5e5a327529/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z06Wp0sAugEMPj_YfPZEZNCIvRO2RqKViYmA1UA2BMM";
 //get videos
