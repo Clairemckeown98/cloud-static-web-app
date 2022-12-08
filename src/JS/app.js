@@ -113,7 +113,6 @@ function deleteVideoFunction(id) {
 
 //Trying to figure out login
 
-
 function validateLogIn() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
@@ -168,19 +167,19 @@ function validateLogIn() {
 
 
 function createUser() {
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  var userFullName = document.getElementById("fullname").value;
-  var emailAddress = document.getElementById("emailaddress").value;
+  var username = document.getElementById("createUsername").value;
+  var password = document.getElementById("createUserPassword").value;
+  var fullname = document.getElementById("createFullName").value;
+  var emailaddress = document.getElementById("createEmailAddress").value;
 
   checkExistingUserData = new FormData();
-  checkExistingUserData.append('userName', username)
+  checkExistingUserData.append('username', username)
 
 
   $.ajax({
     url: USER_EXISTS,
     type: "POST",
-    data: userExists,
+    data: checkExistingUserData,
     cache: false,
     contentType: false,
     processData: false,
@@ -188,21 +187,26 @@ function createUser() {
       console.log(response)
       if (!response) {
         console.log("all good")
-      createUserData = newFormData();
-      createUserData.append('userName', username)
-      createUserData.append('fullname', fullname);
-      createUserData.append('emailaddress', emailaddress);
+      createUserData = new FormData();
+      createUserData.append('userName', username);
+      createUserData.append('fullName', fullname);
+      createUserData.append('emailAddress', emailaddress);
+      createUserData.append('userPassword', password);
 
       $.ajax({
         url: CREATE_USER,
         type: "POST",
-        data: CreateUserData,
+        data: createUserData,
         cache: false,
         contentType: false,
         processData: false,
         success: function (response) {
-          console.log(reponse)
+          console.log(response);
+          alert("Login worked");
+          window.location = "./login.html";
+          
         }
+        
       })
     } else {
       alert("Name not available");
