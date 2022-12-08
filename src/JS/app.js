@@ -151,10 +151,10 @@ function validateLogIn() {
       if (userData[0].userName) {
         if (isAdmin) {
           alert("Admin Login worked");
-          window.location = "./index.html";
+          window.location = "./video.html";
         } else {
           alert("Login worked");
-          window.location = "./index.html";
+          window.location = "./video.html";
         }
       } else {
         alert("failed");
