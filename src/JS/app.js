@@ -1,19 +1,19 @@
 
 //add video
-IUPS = "https://prod-54.northeurope.logic.azure.com:443/workflows/d4d8ce37377446c994f14e5e5a327529/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z06Wp0sAugEMPj_YfPZEZNCIvRO2RqKViYmA1UA2BMM";
+IUPS = "https://prod-54.northeurope.logic.azure.com/workflows/d4d8ce37377446c994f14e5e5a327529/triggers/manual/paths/invoke/rest/v1/video?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z06Wp0sAugEMPj_YfPZEZNCIvRO2RqKViYmA1UA2BMM";
 //get videos
-RAI = "https://prod-57.northeurope.logic.azure.com:443/workflows/a5b6e46177844fe6a9c3304641ea9f7a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4WNE1KTtVJRpmQBlazPoFyjSuIgRFucMVwaSXwgg6BU";
+RAI = "https://prod-57.northeurope.logic.azure.com/workflows/a5b6e46177844fe6a9c3304641ea9f7a/triggers/manual/paths/invoke/rest/v1/videos?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4WNE1KTtVJRpmQBlazPoFyjSuIgRFucMVwaSXwgg6BU";
 //delete video
-DAI_START = "https://prod-03.northeurope.logic.azure.com/workflows/723afd0b94ff46f6afa91fa8f1debcff/triggers/manual/paths/invoke/rest/v1/assets/";
+DAI_START = "https://prod-03.northeurope.logic.azure.com/workflows/723afd0b94ff46f6afa91fa8f1debcff/triggers/manual/paths/invoke/rest/v1/videos/";
 DAI_END = "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=eJJIqQ7EniJaABUmzEaSWkznxO4tFYX9r6aTx5VYTxM";
 BLOB_ACCOUNT = "https://omgshreb00776820.blob.core.windows.net";
 //create new user
-CREATE_USER = "https://prod-61.northeurope.logic.azure.com/workflows/231af797b5cd44a7b4f273d64e5b13d1/triggers/manual/paths/invoke/rest/v1/assets?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4fV0XsboEZ-kkyTrXeSD14zH83_a46epglA3sV-Ijlw";
+CREATE_USER = "https://prod-61.northeurope.logic.azure.com/workflows/231af797b5cd44a7b4f273d64e5b13d1/triggers/manual/paths/invoke/rest/v1/users?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4fV0XsboEZ-kkyTrXeSD14zH83_a46epglA3sV-Ijlw";
 //get user
 GET_USER_START = "https://prod-59.northeurope.logic.azure.com/workflows/19c6d846939f4dffb75053e1424d3e78/triggers/manual/paths/invoke/rest/v1/users/";
 GET_USER_END = "?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=lk-HdpfY6zxP0_JRdQ_tYi7LajNNXfMy9CumYLNDwFs";
 //login
-LOGIN = "https://prod-10.northeurope.logic.azure.com:443/workflows/ed36d3f7e66c46f9b2da4bf28fd36783/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nqjLskq07bktX4wHdDBQrkbjh7Dd43phYoSfUQtU5e0";
+LOGIN = "https://prod-10.northeurope.logic.azure.com/workflows/ed36d3f7e66c46f9b2da4bf28fd36783/triggers/manual/paths/invoke/rest/v1/users?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=nqjLskq07bktX4wHdDBQrkbjh7Dd43phYoSfUQtU5e0";
 //Handlers for button clicks
 USER_EXISTS = "https://prod-29.northeurope.logic.azure.com:443/workflows/f9b8879927a64219afca12ce951bd084/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wJLPsSqumxbNHTNLSFw1JMsHfnBOUxJk432bDNesLVs";
 UPDATE_PW_START= "https://prod-38.northeurope.logic.azure.com/workflows/a4b3f47c22104299835ddb3ccfc12b51/triggers/manual/paths/invoke/rest/v1/users/";
